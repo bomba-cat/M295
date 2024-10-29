@@ -1,4 +1,4 @@
-package ch.zero.Project295;
+package ch.zero.project295;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
