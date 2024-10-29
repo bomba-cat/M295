@@ -1,5 +1,4 @@
 # Project-M295-Note-App
-#M295 [[REST (Representaitional State Transfer)]]
 ## Quick Idea Summary
 I want to maka a Note App that has a **User System** a **Category System** and of course **Taking Notes**:
 1. **User System**: Supports user registration, login/logout, and profile management.
