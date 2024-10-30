@@ -4,6 +4,43 @@ I want to maka a Note App that has a **User System** a **Category System** and o
 1. **User System**: Supports user registration, login/logout, and profile management.
 2. **Category System**: Allows users to create, edit, and delete categories to organize notes, with filtering options.
 3. **Note-Taking**: Users can create, edit, delete, and search notes, with basic formatting options like bold and bullet points.
+## Project Criteria
+
+### A: Allgemein - 10 Punkte
+- Die Komplexität des individuellen Projektes ist angemessen (mindestens so komplex wie WISS-Quiz).
+- Arbeiten sind weitestgehend nach Vorgaben vollständig.
+- Abgabe enthält alle verlangten Dateien und ermöglicht den Betrieb.
+- Positiver Gesamteindruck des Projektes und der Dokumentation.
+- Professioneller Einsatz von GitHub mit angemessener Anzahl sinnstiftender Commits.
+
+### B: Projektdokumentation – 22 Punkte
+- Die Dokumentation wurde als PDF-Datei oder GitHub-Markdown abgegeben und nach IPERKA strukturiert.
+- Grundidee beschreibt das des Projekts aus Anwendersicht (elevator pitch).
+- Arbeitsplan enthält sinnvolle Arbeitspakete und Aufwandsschätzungen.
+- Anforderungsanalyse wurde durchgeführt und dokumentiert (mindestens drei User Stories mit Akzeptanzkriterien).
+- Klassendiagramm der Modell-Komponenten ist enthalten und korrekt.
+- Testplan für manuelles Testen ist vorhanden und beinhaltet je drei sinnvolle Testfälle für Positiv- und Negativtests.
+- Testprotokoll wurde geeignet dokumentiert.
+- Installationsanleitung ist vorhanden und korrekt.
+- Hilfestellungen wurden maßvoll eingesetzt und dokumentiert.
+- Die API-Endpunkte sind geeignet dokumentiert.
+- Auswerten-Teil enthält selbstkritische Reflexion des Moduls und des Projekts.
+
+### C: Implementierung REST-API - 26 Punkte
+- Das Projekt lässt sich ohne Anpassungen in eine IDE importieren.
+- Das Projekt lässt sich nach Anleitung ohne Kompilierfehler erstellen und starten.
+- Die Java-Klassen beinhalten sinnvolle und korrekte JavaDoc Kommentare (ohne Getter/Setter).
+- Die Applikation stürzt nicht ab, Exceptions werden sauber gehandelt.
+- Das REST-API bietet geeignete Endpoints für das Laden von Daten an.
+- Das REST-API bietet geeignete Endpoints für das Erfassen von Daten an.
+- Das REST-API bietet geeignete Endpoints für das Editieren von Daten an.
+- Das REST-API bietet geeignete Endpoints für das Löschen von Daten an.
+- Daten werden sinnvoll validiert.
+- Fehlerhafte Daten werden mit geeigneten Fehlermeldungen abgewiesen.
+- Daten werden in einer Datenbank persistent abgelegt.
+- Unit-Tests sind vorhanden und beinhalten je drei sinnvolle Testfälle für Positiv- und Negativtests.
+
+Unit-Tests sind ausführbar 
 ## User Stories
 The User Stories are sorted after the **Priority**
 ### User Registration:
