@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    
     private final UserRepository userRepository;
 
     @Autowired
@@ -48,16 +49,45 @@ public class UserController {
     public User registerUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
-    @PutMapping("/{id}")
-    public String editUser(@PathVariable String id, @RequestBody String entity) {
-        //TODO: process PUT request
-        
-        return entity;
+    @PutMapping("/{id}/username")
+    public ResponseEntity<User> updateUsername(@PathVariable Long id, @Valid @RequestBody String username) {
+        return userRepository.findById(id)
+        .map(existingUser -> {
+            existingUser.setUsername(username);
+            User updatedUser = userRepository.save(existingUser);
+            return ResponseEntity.ok(updatedUser);
+        })
+        .orElse(ResponseEntity.notFound().build());
     }
+    @PutMapping("/{id}/email")
+    public ResponseEntity<User> updateEmail(@PathVariable long id, @Valid @RequestBody String email) {
+        return userRepository.findById(id)
+        .map(existingUser -> {
+            existingUser.setEmail(email);
+            User updatedUser = userRepository.save(existingUser);
+            return ResponseEntity.ok(updatedUser);
+        })
+        .orElse(ResponseEntity.notFound().build());
+    }
+
+    public ResponseEntity<User> updatePassword(@PathVariable long id, @Valid @RequestBody String password) {
+        return userRepository.findById(id)
+        .map(existingUser -> {
+            existingUser.setPassword(password);
+            User updatedUser = userRepository.save(existingUser);
+            return ResponseEntity.ok(updatedUser);
+        })
+        .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}") 
     public ResponseEntity<Void> deleteUser(@PathVariable long id){
-        return null;
-      // TODO process Delete request
+        return userRepository.findById(id)
+        .map( user -> {
+            userRepository.delete(user);
+            return ResponseEntity.noContent().<Void>build();
+        })
+        .orElse(ResponseEntity.notFound().build());    
     }
     
 
