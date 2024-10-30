@@ -112,3 +112,7 @@ if i want to spend more time on a day i'm going to do that
  - [ ] **5-8 Hours**: Write tests for note and category endpoints.
 ### Day 8 (Tuesday): Finishing touches
 - [ ] **1-8 Hours:** Finalizing the work and optimize the code for the requirements of the project. do some Frontend (Optional)
+
+## Diary
+### Wednesday 30.10.2024
+I created and imported all necessities of my project and started with the User class. Later i wanted to add Api responses for my UserController class so i can have better responses for my errors and successful creation. I had some spare time so i also finished the Note class. Overall a productive day
