@@ -65,7 +65,7 @@ With these User Stories i created a Class Diagramm on the most important Classes
 if i want to spend more time on a day i'm going to do that 
 ### Day 2 (Wednesday): User-related endpoints (4 hours)
 - [x] **1 Hour**: Set up the development environment and initialize the project repository. 
-- [ ] **1-4 Hours**: Implement all necessary user-related endpoints (registration, profile editing, and deletion).
+- [x] **1-4 Hours**: Implement all necessary user-related endpoints (registration, profile editing, and deletion).
 ### Day 3 (Thursday): Note endpoints (4 hours)
 - [ ] **1-4 Hours**: Implement endpoints for note creation, editing, deleting, and fetching notes.
 ### Day 4 (Friday): Category endpoints(4 hours)
