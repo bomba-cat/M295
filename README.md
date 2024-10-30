@@ -39,8 +39,7 @@ I want to maka a Note App that has a **User System** a **Category System** and o
 - Fehlerhafte Daten werden mit geeigneten Fehlermeldungen abgewiesen.
 - Daten werden in einer Datenbank persistent abgelegt.
 - Unit-Tests sind vorhanden und beinhalten je drei sinnvolle Testfälle für Positiv- und Negativtests.
-
-Unit-Tests sind ausführbar 
+- Unit-Tests sind ausführbar 
 ## User Stories
 The User Stories are sorted after the **Priority**
 ### User Registration:
