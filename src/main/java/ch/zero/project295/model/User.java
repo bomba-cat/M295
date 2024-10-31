@@ -1,4 +1,9 @@
 package ch.zero.project295.model;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -56,7 +61,7 @@ public class User {
     @Size(min = 5, max = 40, message = "The password must be between 5 and 40 characters")
     @Pattern(regexp = ".*[!@#$%^&*(),.?\":{}|<>].*", message = "Password must contain at least one special character.")
     private String password;
-
+    
     /**
      * Gets the unique identifier for the user.
      * 
@@ -127,5 +132,12 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<Note> getNotes() {
+        return notes;
+    }
+    
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
     }
 }

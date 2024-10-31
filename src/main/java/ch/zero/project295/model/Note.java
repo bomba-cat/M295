@@ -1,6 +1,9 @@
 package ch.zero.project295.model;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -46,7 +49,6 @@ public class Note {
      * This field cannot be null and indicates when the note was created.
      * </p>
      */
-    @NotNull(message = "Creation date cannot be null")
     private LocalDateTime createdDate;
 
     /**
@@ -63,8 +65,9 @@ public class Note {
      * Each note is linked to a specific user, represented by the user ID.
      * </p>
      */
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false )
+    @JsonBackReference
     private User user;
 
     // Getters and setters
@@ -180,7 +183,7 @@ public class Note {
     public void onCreate() {
         this.createdDate = LocalDateTime.now();
     }
-    @PrePersist
+    @PreUpdate
     public void onModified() {
         this.modifiedDate = LocalDateTime.now();
     }

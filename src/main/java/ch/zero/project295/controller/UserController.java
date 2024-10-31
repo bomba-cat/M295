@@ -8,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.*;
-
+import ch.zero.project295.dto.UserDTO;
 import ch.zero.project295.model.User;
 import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.util.ApiResponse;
+import ch.zero.project295.util.EntityMapper;
 
 @RestController
 @RequestMapping("/user")
@@ -30,9 +31,10 @@ public class UserController {
      * @return ResponseEntity containing ApiResponse with a list of all users
      */
     @GetMapping
-    public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
+    public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsers() {
         List<User> userList = userRepository.findAll();
-        ApiResponse<List<User>> response = new ApiResponse<>(true, "Users retrieved successfully", userList);
+        List<UserDTO> userListDTO = EntityMapper.toUserDTOList(userList);
+        ApiResponse<List<UserDTO>> response = new ApiResponse<>(true, "Users retrieved successfully", userListDTO);
         return ResponseEntity.ok(response);
     }
 
@@ -43,10 +45,11 @@ public class UserController {
      * @return ResponseEntity containing ApiResponse with the user if found, or 404 status if not found
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<User>> getUserById(@PathVariable long id) {
+    public ResponseEntity<ApiResponse<UserDTO>> getUserById(@PathVariable long id) {
         return userRepository.findById(id)
                 .map(user -> {
-                    ApiResponse<User> response = new ApiResponse<>(true, "User with ID " + id + " found successfully", user);
+                    UserDTO userDTO = EntityMapper.toUserDTO(user);
+                    ApiResponse<UserDTO> response = new ApiResponse<>(true, "User with ID " + id + " found successfully", userDTO);
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -60,9 +63,11 @@ public class UserController {
      * @return ResponseEntity containing ApiResponse with the registered user
      */
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<User>> registerUser(@Valid @RequestBody User user) {
+    public ResponseEntity<ApiResponse<UserDTO>> registerUser(@Valid @RequestBody UserDTO userDTO) {
+        User user = EntityMapper.toUserEntity(userDTO);
         User registeredUser = userRepository.save(user);
-        ApiResponse<User> response = new ApiResponse<>(true, "User registered successfully with ID " + registeredUser.getUserId(), registeredUser);
+        UserDTO registeredUserDTO = EntityMapper.toUserDTO(registeredUser);
+        ApiResponse<UserDTO> response = new ApiResponse<>(true, "User registered successfully with ID " + registeredUser.getUserId(), registeredUserDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -74,12 +79,13 @@ public class UserController {
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
      */
     @PutMapping("/{id}/username")
-    public ResponseEntity<ApiResponse<User>> updateUsername(@PathVariable Long id, @Valid @RequestBody String username) {
+    public ResponseEntity<ApiResponse<UserDTO>> updateUsername(@PathVariable Long id, @Valid @RequestBody String username) {
         return userRepository.findById(id)
                 .map(existingUser -> {
                     existingUser.setUsername(username);
                     User updatedUser = userRepository.save(existingUser);
-                    ApiResponse<User> response = new ApiResponse<>(true, "Username updated successfully for user with ID " + id, updatedUser);
+                    UserDTO updatedUserDTO = EntityMapper.toUserDTO(updatedUser);
+                    ApiResponse<UserDTO> response = new ApiResponse<>(true, "Username updated successfully for user with ID " + id, updatedUserDTO);
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -94,12 +100,13 @@ public class UserController {
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
      */
     @PutMapping("/{id}/email")
-    public ResponseEntity<ApiResponse<User>> updateEmail(@PathVariable long id, @Valid @RequestBody String email) {
+    public ResponseEntity<ApiResponse<UserDTO>> updateEmail(@PathVariable long id, @Valid @RequestBody String email) {
         return userRepository.findById(id)
                 .map(existingUser -> {
                     existingUser.setEmail(email);
                     User updatedUser = userRepository.save(existingUser);
-                    ApiResponse<User> response = new ApiResponse<>(true, "Email updated successfully for user with ID " + id, updatedUser);
+                    UserDTO updatedUserDTO = EntityMapper.toUserDTO(updatedUser);
+                    ApiResponse<UserDTO> response = new ApiResponse<>(true, "Email updated successfully for user with ID " + id, updatedUserDTO);
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -114,12 +121,13 @@ public class UserController {
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
      */
     @PutMapping("/{id}/password")
-    public ResponseEntity<ApiResponse<User>> updatePassword(@PathVariable long id, @Valid @RequestBody String password) {
+    public ResponseEntity<ApiResponse<UserDTO>> updatePassword(@PathVariable long id, @Valid @RequestBody String password) {
         return userRepository.findById(id)
                 .map(existingUser -> {
                     existingUser.setPassword(password);
                     User updatedUser = userRepository.save(existingUser);
-                    ApiResponse<User> response = new ApiResponse<>(true, "Password updated successfully for user with ID " + id, updatedUser);
+                    UserDTO updatedUserDTO = EntityMapper.toUserDTO(updatedUser);
+                    ApiResponse<UserDTO> response = new ApiResponse<>(true, "Password updated successfully for user with ID " + id, updatedUserDTO);
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)

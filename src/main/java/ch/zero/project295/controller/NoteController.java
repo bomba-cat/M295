@@ -1,15 +1,19 @@
 package ch.zero.project295.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.zero.project295.dto.NoteDTO;
 import ch.zero.project295.model.Note;
 import ch.zero.project295.repository.NoteRepository;
 import ch.zero.project295.util.ApiResponse;
+import ch.zero.project295.util.EntityMapper;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -33,37 +37,44 @@ public class NoteController {
         this.noteRepository = noteRepository;
     }
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Note>>> getAllNotes() {
+    public ResponseEntity<ApiResponse<List<NoteDTO>>> getAllNotes() {
         List<Note> noteList = noteRepository.findAll();
-        ApiResponse<List<Note>> response = new ApiResponse<>(true, "successfully got all notes", noteList);
+        
+        List<NoteDTO> noteDTOList = EntityMapper.toNoteDTOList(noteList);
+
+        ApiResponse<List<NoteDTO>> response = new ApiResponse<>(true, "Successfully retrieved all notes", noteDTOList);
         return ResponseEntity.ok(response);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Note>> getNoteById(@PathVariable long id) {
+    public ResponseEntity<ApiResponse<NoteDTO>> getNoteById(@PathVariable long id) {
         return noteRepository.findById(id)
                 .map(note -> {
-                    ApiResponse<Note> response = new ApiResponse<>(true, "Note with ID " + id + " found successfully", note);
+                    NoteDTO noteDTO = EntityMapper.toNoteDTO(note);
+                    ApiResponse<NoteDTO> response = new ApiResponse<>(true, "Note with ID " + id + " found successfully", noteDTO);
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>(false, "Note with ID " + id + " not found", null)));
     }
     @PostMapping
-    public ResponseEntity<ApiResponse<Note>> createNote(@Valid @RequestBody Note note) {
+    public ResponseEntity<ApiResponse<NoteDTO>> createNote(@Valid @RequestBody NoteDTO noteDTO) {
+        Note note = EntityMapper.toNoteEntity(noteDTO);
         note.setCreatedDate(LocalDateTime.now());
         Note newNote = noteRepository.save(note);
-        ApiResponse<Note> response = new ApiResponse<>(true, "Note created", newNote);
+        NoteDTO saveNoteDTO = EntityMapper.toNoteDTO(newNote);
+        ApiResponse<NoteDTO> response = new ApiResponse<>(true, "Note created", saveNoteDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("{id}/notetitle")
-    public ResponseEntity<ApiResponse<Note>> updateNoteTitle(@PathVariable Long id,@Valid @RequestBody String noteTitle) {
+    public ResponseEntity<ApiResponse<NoteDTO>> updateNoteTitle(@PathVariable Long id,@Valid @RequestBody String noteTitle) {
         return noteRepository.findById(id)
             .map(existingNote -> {
                 existingNote.setModifiedDate(LocalDateTime.now());
                 existingNote.setNoteTitle(noteTitle);
                 Note updatedNote = noteRepository.save(existingNote);
-                ApiResponse<Note> response = new ApiResponse<>(true, "Note Title updated successfully for note with ID"  + id, updatedNote);
+                NoteDTO updatedNoteDTO = EntityMapper.toNoteDTO(updatedNote);
+                ApiResponse<NoteDTO> response = new ApiResponse<>(true, "Note Title updated successfully for note with ID"  + id, updatedNoteDTO);
                 return ResponseEntity.ok(response);
             })
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -71,13 +82,14 @@ public class NoteController {
     }
     
     @PutMapping("{id}/noteBody")
-    public ResponseEntity<ApiResponse<Note>> updateNoteBody(@PathVariable Long id,@Valid @RequestBody String noteBody) {
+    public ResponseEntity<ApiResponse<NoteDTO>> updateNoteBody(@PathVariable Long id,@Valid @RequestBody String noteBody) {
         return noteRepository.findById(id)
             .map(existingNote -> {
                 existingNote.setModifiedDate(LocalDateTime.now());
                 existingNote.setNoteBody(noteBody);
                 Note updatedNote = noteRepository.save(existingNote);
-                ApiResponse<Note> response = new ApiResponse<>(true, "Note Body updated successfully for note with ID"  + id, updatedNote);
+                NoteDTO updatedNoteDTO = EntityMapper.toNoteDTO(updatedNote);
+                ApiResponse<NoteDTO> response = new ApiResponse<>(true, "Note Body updated successfully for note with ID"  + id, updatedNoteDTO);
                 return ResponseEntity.ok(response);
             })
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
