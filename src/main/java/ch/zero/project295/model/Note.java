@@ -1,6 +1,6 @@
 package ch.zero.project295.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -47,7 +47,7 @@ public class Note {
      * </p>
      */
     @NotNull(message = "Creation date cannot be null")
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     /**
      * The date when the note was last modified.
@@ -55,7 +55,7 @@ public class Note {
      * This field is optional and may not be set if the note has not been modified after creation.
      * </p>
      */
-    private Date modifiedDate;
+    private LocalDateTime modifiedDate;
 
     /**
      * The user associated with the note.
@@ -128,7 +128,7 @@ public class Note {
      *
      * @return the creation date
      */
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
@@ -137,7 +137,7 @@ public class Note {
      *
      * @param createdDate the creation date to set
      */
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -146,7 +146,7 @@ public class Note {
      *
      * @return the modification date
      */
-    public Date getModifiedDate() {
+    public LocalDateTime getModifiedDate() {
         return modifiedDate;
     }
 
@@ -155,7 +155,7 @@ public class Note {
      *
      * @param modifiedDate the modification date to set
      */
-    public void setModifiedDate(Date modifiedDate) {
+    public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 
@@ -175,5 +175,13 @@ public class Note {
      */
     public void setUser(User user) {
         this.user = user;
+    }
+    @PrePersist
+    public void onCreate() {
+        this.createdDate = LocalDateTime.now();
+    }
+    @PrePersist
+    public void onModified() {
+        this.modifiedDate = LocalDateTime.now();
     }
 }
