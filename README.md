@@ -103,9 +103,9 @@ if i want to spend more time on a day i'm going to do that
 - [x] **1 Hour**: Set up the development environment and initialize the project repository. 
 - [x] **1-4 Hours**: Implement all necessary user-related endpoints (registration, profile editing, and deletion).
 ### Day 3 (Thursday): Note endpoints (4 hours)
-- [ ] **1-4 Hours**: Implement endpoints for note creation, editing, deleting, and fetching notes.
+- [x] **1-4 Hours**: Implement endpoints for note creation, editing, deleting, and fetching notes.
 ### Day 4 (Friday): Category endpoints(4 hours)
-- [ ] **1-4 Hours**: Implement endpoints for category creation, editing, deleting, and fetching notes by category.
+- [x] **1-4 Hours**: Implement endpoints for category creation, editing, deleting, and fetching notes by category.
 ### Day 5 (Saturday): Testing/Unit Testing (4 hours)
 - [ ] **1-4 Hours**: Write tests for user-related endpoints (registration and edit/delete).
 ### Day 6 (Sunday): Testing/Unit Testing (8 Hours)
