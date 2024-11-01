@@ -3,18 +3,13 @@ package ch.zero.project295.dto;
 import java.time.LocalDateTime;
 
 public class NoteDTO {
+
     private long noteId;
     private String noteTitle;
     private String noteBody;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
-    private UserDTO user;
-
-
-    public NoteDTO() {
-        // no constructor so that the json can fill it
-    }
-
+    private long userId;
 
     public long getNoteId() {
         return noteId;
@@ -56,12 +51,11 @@ public class NoteDTO {
         this.modifiedDate = modifiedDate;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
-
 }

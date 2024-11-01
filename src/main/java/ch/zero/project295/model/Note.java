@@ -67,7 +67,6 @@ public class Note {
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false )
-    @JsonBackReference
     private User user;
 
     // Getters and setters

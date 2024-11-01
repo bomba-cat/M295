@@ -116,5 +116,7 @@ if i want to spend more time on a day i'm going to do that
 ## Diary
 ### Wednesday 30.10.2024
 I created and imported all necessities of my project and started with the User class. Later i wanted to add Api responses for my UserController class so i can have better responses for my errors and successful creation. I had some spare time so i also finished the Note class. Overall a productive day
-### Tuesday
+### Thursday 31.10.2024
 I created the Note class + Controller and ive Noticed that on the return massage on the Post mapping everything of the user is null except the userID so i researched and found DTOs(Data Transfer Objects) so i tried it but it was very difficult but with the Help of ChatGPTS explanations i managed to  do it. At the end it still didn't work and i was disappointed but i still implemented it. It is useful for hiding data u don't want others to see so it wasn't completely useless.
+### Friday 1.11.2024
+I finished the Category Class with all the necessities like Controller and the DTO. I also did that the data reflected is only showing the userId without the username etc. No issues today

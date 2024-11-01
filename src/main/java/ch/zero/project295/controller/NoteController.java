@@ -81,7 +81,7 @@ public class NoteController {
             .body(new ApiResponse<>(false, "Note with ID " + id + " not found", null)));
     }
     
-    @PutMapping("{id}/noteBody")
+    @PutMapping("{id}/notebody")
     public ResponseEntity<ApiResponse<NoteDTO>> updateNoteBody(@PathVariable Long id,@Valid @RequestBody String noteBody) {
         return noteRepository.findById(id)
             .map(existingNote -> {
