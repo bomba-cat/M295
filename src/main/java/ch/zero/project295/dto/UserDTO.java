@@ -1,11 +1,5 @@
 package ch.zero.project295.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import ch.zero.project295.model.User;
-import ch.zero.project295.util.EntityMapper;
-
 public class UserDTO {
     private long userId;
     private String username;

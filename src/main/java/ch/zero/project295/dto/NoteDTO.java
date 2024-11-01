@@ -1,11 +1,6 @@
 package ch.zero.project295.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import ch.zero.project295.model.Note;
-import ch.zero.project295.util.EntityMapper;
 
 public class NoteDTO {
     private long noteId;
