@@ -120,3 +120,20 @@ I created and imported all necessities of my project and started with the User c
 I created the Note class + Controller and ive Noticed that on the return massage on the Post mapping everything of the user is null except the userID so i researched and found DTOs(Data Transfer Objects) so i tried it but it was very difficult but with the Help of ChatGPTS explanations i managed to  do it. At the end it still didn't work and i was disappointed but i still implemented it. It is useful for hiding data u don't want others to see so it wasn't completely useless.
 ### Friday 1.11.2024
 I finished the Category Class with all the necessities like Controller and the DTO. I also did that the data reflected is only showing the userId without the username etc. No issues today
+### Saturday 2.11.2024
+I only did the Testplan and exception handler today due my limited time but i did the whole Testplan for all endpoints. Tommorow im going to Test it all and also do the Unit Tests. The only issue i had today was, that the Validation worked in a wierd way and i didn't know, that if i want the right error messages i have to Validate the DTO's too but it works now
+
+## Testplan
+
+| Test ID | Test Name                    | Requirements            | Test Type   | Test Process                                              | Expected Outcome                          |
+|---------|-----------------------------|-------------------------|-------------|-----------------------------------------------------------|-------------------------------------------|
+| 1       | Create Note                  | Valid userId, API access | Positive    | Send a POST request to `/note` with valid noteTitle, noteBody, and userId. | Note is created and saved successfully.   |
+| 2       | Create Note without Title    | Valid userId, API access | Negative    | Send a POST request to `/note` with an empty noteTitle.    | Error message: "Title cannot be empty".   |
+| 3       | Update Note Title            | Note exists              | Positive    | Send a PUT request to `/note/{id}/notetitle` with a new valid title. | Note title is updated successfully.       |
+| 4       | Update Note Title Empty      | Note exists              | Negative    | Send a PUT request to `/note/{id}/notetitle` with an empty string. | Error message: "Title cannot be empty".   |
+| 5       | Delete Note                  | Note exists              | Positive    | Send a DELETE request to `/note/{id}`.                    | Note is deleted from the database.        |
+| 6       | Delete Non-Existent Note     | Non-existent noteId      | Negative    | Send a DELETE request to `/note/{invalid-id}`.            | Error message: "Note with ID {id} not found". |
+| 7       | Create Category              | Valid userId             | Positive    | Send a POST request to `/category` with valid categoryName and userId. | Category is created successfully.         |
+| 8       | Create Category without User | Missing userId           | Negative    | Send a POST request to `/category` without userId.         | Error message: "User ID cannot be null".  |
+| 9       | Register User                | API access               | Positive    | Send a POST request to `/user/register` with valid data.   | User is registered successfully.          |
+| 10      | Register User Invalid Email  | Invalid email format     | Negative    | Send a POST request to `/user/register` with invalid email. | Error message: "Please enter a valid email". |

@@ -2,13 +2,26 @@ package ch.zero.project295.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class NoteDTO {
 
     private long noteId;
+
+    @NotNull(message = "Title cannot be null")
+    @NotBlank(message = "Title cannot be empty")
+    @Size(max = 50, message = "Title cannot be longer than 50 characters")
     private String noteTitle;
+
     private String noteBody;
+
     private LocalDateTime createdDate;
+
     private LocalDateTime modifiedDate;
+
+    @NotNull(message = "User ID cannot be null")
     private long userId;
 
     public long getNoteId() {

@@ -1,14 +1,29 @@
 package ch.zero.project295.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class UserDTO {
     private long userId;
+
+    @NotBlank(message = "Username must not be blank")
+    @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters")
     private String username;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Please enter a valid email")
     private String email;
 
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 5, max = 40, message = "Password must be between 5 and 40 characters")
+    private String password;
+
     public UserDTO() {
-        // no constructor so that the json can fill it
+        // json
     }
 
+    // Getters and setters
 
     public long getUserId() {
         return userId;
@@ -34,5 +49,11 @@ public class UserDTO {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
