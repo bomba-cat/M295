@@ -37,6 +37,13 @@ public class UserController {
         ApiResponse<List<UserDTO>> response = new ApiResponse<>(true, "Users retrieved successfully", userListDTO);
         return ResponseEntity.ok(response);
     }
+    
+    @GetMapping("/password")
+    public ResponseEntity<ApiResponse<List<User>>> getAllUserswithpasswords() {
+        List<User> userList = userRepository.findAll();
+        ApiResponse<List<User>> response = new ApiResponse<>(true, "Users retrieved successfully", userList);
+        return ResponseEntity.ok(response);
+    }
 
     /**
      * Retrieves a user by their ID.
@@ -64,7 +71,8 @@ public class UserController {
      */
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<UserDTO>> registerUser(@Valid @RequestBody UserDTO userDTO) {
-        User user = EntityMapper.toUserEntity(userDTO);
+        System.out.println("Received password: " + userDTO.getPassword());
+        User user = EntityMapper.toUserEntityRegistration(userDTO);
         User registeredUser = userRepository.save(user);
         UserDTO registeredUserDTO = EntityMapper.toUserDTO(registeredUser);
         ApiResponse<UserDTO> response = new ApiResponse<>(true, "User registered successfully with ID " + registeredUser.getUserId(), registeredUserDTO);

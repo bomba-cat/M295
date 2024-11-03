@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ch.zero.project295.dto.CategoryDTO;
 import ch.zero.project295.repository.CategoryRepository;
+import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.util.ApiResponse;
 import ch.zero.project295.util.EntityMapper;
 import ch.zero.project295.model.Category;
@@ -19,10 +20,12 @@ import jakarta.validation.Valid;
 public class CategoryController {
 
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CategoryController(CategoryRepository categoryRepository) {
+    public CategoryController(CategoryRepository categoryRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -65,11 +68,17 @@ public class CategoryController {
      */
     @PostMapping
     public ResponseEntity<ApiResponse<CategoryDTO>> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+        if (!userRepository.existsById(categoryDTO.getUserId())) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(false, "User with ID " + categoryDTO.getUserId() + " not found", null));
+        }
+        
         Category category = EntityMapper.toCategoryEntity(categoryDTO);
         Category savedCategory = categoryRepository.save(category);
         CategoryDTO savedCategoryDTO = EntityMapper.toCategoryDTO(savedCategory);
         ApiResponse<CategoryDTO> response = new ApiResponse<>(true, "Category created successfully", savedCategoryDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        
     }
 
     /**

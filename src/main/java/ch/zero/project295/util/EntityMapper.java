@@ -29,6 +29,14 @@ public class EntityMapper {
         user.setEmail(userDTO.getEmail());
         return user;
     }
+    public static User toUserEntityRegistration(UserDTO userDTO) {
+        User user = new User();
+        user.setUserId(userDTO.getUserId());
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        return user;
+    }
 
     // Convert Note to NoteDTO
     public static NoteDTO toNoteDTO(Note note) {

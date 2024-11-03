@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.zero.project295.dto.NoteDTO;
 import ch.zero.project295.model.Note;
 import ch.zero.project295.repository.NoteRepository;
+import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.util.ApiResponse;
 import ch.zero.project295.util.EntityMapper;
 import jakarta.validation.Valid;
@@ -30,10 +31,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/note")
 public class NoteController {
     private final NoteRepository noteRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public NoteController(NoteRepository noteRepository) {
+    public NoteController(NoteRepository noteRepository, UserRepository userRepository ) {
         this.noteRepository = noteRepository;
+        this.userRepository = userRepository;
     }
     @GetMapping
     public ResponseEntity<ApiResponse<List<NoteDTO>>> getAllNotes() {
@@ -57,6 +60,10 @@ public class NoteController {
     }
     @PostMapping
     public ResponseEntity<ApiResponse<NoteDTO>> createNote(@Valid @RequestBody NoteDTO noteDTO) {
+        if (!userRepository.existsById(noteDTO.getUserId())) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(false, "User with ID " + noteDTO.getUserId() + " not found", null));
+        }        
         Note note = EntityMapper.toNoteEntity(noteDTO);
         note.setCreatedDate(LocalDateTime.now());
         Note newNote = noteRepository.save(note);

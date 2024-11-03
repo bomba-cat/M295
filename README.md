@@ -122,6 +122,9 @@ I created the Note class + Controller and ive Noticed that on the return massage
 I finished the Category Class with all the necessities like Controller and the DTO. I also did that the data reflected is only showing the userId without the username etc. No issues today
 ### Saturday 2.11.2024
 I only did the Testplan and exception handler today due my limited time but i did the whole Testplan for all endpoints. Tommorow im going to Test it all and also do the Unit Tests. The only issue i had today was, that the Validation worked in a wierd way and i didn't know, that if i want the right error messages i have to Validate the DTO's too but it works now
+### Sunday 3.11.2024
+I hate tests. Found a bug that when the user is invalid it gives out 500 server error instead of saying the ID not found. I also had a bug where i couldnt create a User because it doesn't get the Password attribute so i added a UserDTOtoEntity for Registration and added the password get mapping so i can see the passwords are saved right. Also wrote all Tests and added the Dependency for Mock tests. did i already say i hate tests?. 
+
 
 ## Testplan
 
