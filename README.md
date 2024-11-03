@@ -107,9 +107,9 @@ if i want to spend more time on a day i'm going to do that
 ### Day 4 (Friday): Category endpoints(4 hours)
 - [x] **1-4 Hours**: Implement endpoints for category creation, editing, deleting, and fetching notes by category.
 ### Day 5 (Saturday): Testing/Unit Testing (4 hours)
-- [ ] **1-4 Hours**: Write tests for user-related endpoints (registration and edit/delete).
+- [x] **1-4 Hours**: Write tests for user-related endpoints (registration and edit/delete).
 ### Day 6 (Sunday): Testing/Unit Testing (8 Hours)
- - [ ] **5-8 Hours**: Write tests for note and category endpoints.
+ - [x] **5-8 Hours**: Write tests for note and category endpoints.
 ### Day 8 (Tuesday): Finishing touches
 - [ ] **1-8 Hours:** Finalizing the work and optimize the code for the requirements of the project. do some Frontend (Optional)
 
