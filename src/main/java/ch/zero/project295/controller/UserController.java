@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import ch.zero.project295.dto.UserDTO;
 import ch.zero.project295.model.User;
 import ch.zero.project295.repository.UserRepository;
@@ -34,6 +35,7 @@ public class UserController {
      *
      * @return ResponseEntity containing ApiResponse with a list of all users
      */
+    @Operation(summary = "Get all users", description = "Retrieves all users in the system")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserDTO>>> getAllUsers() {
         List<User> userList = userRepository.findAll();
@@ -48,6 +50,7 @@ public class UserController {
      * @param id the ID of the user to retrieve
      * @return ResponseEntity containing ApiResponse with the user if found, or 404 status if not found
      */
+    @Operation(summary = "Get user by ID", description = "Retrieves a user by their ID")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<UserDTO>> getUserById(@PathVariable long id) {
         return userRepository.findById(id)
@@ -65,8 +68,8 @@ public class UserController {
      *
      * @param userDTO the user information to register
      * @return ResponseEntity containing ApiResponse with the registered user
-     * 
      */
+    @Operation(summary = "Register a new user", description = "Registers a new user in the system")
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<UserDTO>> registerUser(@Valid @RequestBody UserDTO userDTO) {
         System.out.println("Received password: " + userDTO.getPassword()); // Debugging purpose; avoid logging passwords in production.
@@ -84,6 +87,7 @@ public class UserController {
      * @param username the new username
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
      */
+    @Operation(summary = "Update username", description = "Updates the username of an existing user")
     @PutMapping("/{id}/username")
     public ResponseEntity<ApiResponse<UserDTO>> updateUsername(@PathVariable Long id, @Valid @RequestBody String username) {
         return userRepository.findById(id)
@@ -105,6 +109,7 @@ public class UserController {
      * @param email the new email address
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
      */
+    @Operation(summary = "Update email", description = "Updates the email address of an existing user")
     @PutMapping("/{id}/email")
     public ResponseEntity<ApiResponse<UserDTO>> updateEmail(@PathVariable long id, @Valid @RequestBody String email) {
         return userRepository.findById(id)
@@ -125,8 +130,8 @@ public class UserController {
      * @param id       the ID of the user to update
      * @param password the new password
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
-     *
      */
+    @Operation(summary = "Update password", description = "Updates the password of an existing user")
     @PutMapping("/{id}/password")
     public ResponseEntity<ApiResponse<UserDTO>> updatePassword(@PathVariable long id, @Valid @RequestBody String password) {
         return userRepository.findById(id)
@@ -147,6 +152,7 @@ public class UserController {
      * @param id the ID of the user to delete
      * @return ResponseEntity containing ApiResponse with no content or a 404 status if not found
      */
+    @Operation(summary = "Delete a user", description = "Deletes a user by their ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable long id) {
         return userRepository.findById(id)
