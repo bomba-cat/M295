@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ch.zero.project295.dto.NoteDTO;
 import ch.zero.project295.model.Note;
 import ch.zero.project295.model.User;
+import ch.zero.project295.model.Category;
 import ch.zero.project295.repository.NoteRepository;
 import ch.zero.project295.repository.UserRepository;
+import ch.zero.project295.repository.CategoryRepository;
 import ch.zero.project295.util.EntityMapper;
 
 @WebMvcTest(NoteController.class)
@@ -37,18 +40,23 @@ public class NoteControllerTest {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private CategoryRepository categoryRepository;
     
 
     @Test
-    void createNote_Success_WithUserId() throws Exception {
+    void createNote_Success_WithUserIdAndCategoryId() throws Exception {
         // Arrange
         NoteDTO noteDTO = new NoteDTO();
         noteDTO.setNoteTitle("Test Note");
         noteDTO.setNoteBody("This is a test note.");
         noteDTO.setUserId(1L);  // Set only the user ID
+        noteDTO.setCategoryId(2L);  // Set only the category ID
 
-        // Mock the UserRepository to simulate the user exists
+        // Mock the UserRepository and CategoryRepository to simulate the user and category exist
         Mockito.when(userRepository.existsById(1L)).thenReturn(true);
+        Mockito.when(categoryRepository.existsById(2L)).thenReturn(true);
         
         // Mock the NoteRepository to return the note after saving
         Note note = EntityMapper.toNoteEntity(noteDTO);
@@ -62,7 +70,6 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.message").value("Note created"));
     }
-    
     
     @Test
     void createNote_Failure_TitleEmpty() throws Exception {
@@ -78,7 +85,8 @@ public class NoteControllerTest {
         .andExpect(jsonPath("$.success").value(false))
         .andExpect(jsonPath("$.message").value("Title cannot be empty"));
     }
-        @Test
+        
+    @Test
     void getAllNotes_Success() throws Exception {
         // Arrange
         List<Note> notes = new ArrayList<>();
@@ -153,5 +161,54 @@ public class NoteControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false))
                 .andExpect(jsonPath("$.message").value("Note with ID 1 not found"));
+    }
+
+    @Test
+    void updateNoteCategory_Success() throws Exception {
+        System.out.println("Running updateNoteCategory_Success test");
+        // Arrange
+        Note note = new Note();
+        note.setNoteId(1L);
+        note.setNoteTitle("Test Note");
+        note.setNoteBody("This is a test note.");
+
+        Category oldCategory = new Category();
+        oldCategory.setCategoryId(2L);
+        note.setCategory(oldCategory);
+
+        Category newCategory = new Category();
+        newCategory.setCategoryId(3L);
+
+        Mockito.when(noteRepository.findById(1L)).thenReturn(Optional.of(note));
+        Mockito.when(categoryRepository.existsById(3L)).thenReturn(true);
+        Mockito.when(categoryRepository.findById(3L)).thenReturn(Optional.of(newCategory));
+        Mockito.when(noteRepository.save(Mockito.any(Note.class))).thenReturn(note);
+
+        String requestBody = objectMapper.writeValueAsString(java.util.Map.of("categoryId", 3L));
+
+        // Act & Assert
+        mockMvc.perform(put("/note/{id}/category", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("Note category updated successfully for note with ID 1"));
+    }
+
+    
+
+    @Test
+    void updateNoteCategory_Failure_CategoryNotFound() throws Exception {
+        // Arrange
+        Mockito.when(noteRepository.findById(1L)).thenReturn(Optional.of(new Note()));
+        Mockito.when(categoryRepository.existsById(3L)).thenReturn(false);
+
+        // Act & Assert
+        mockMvc.perform(put("/note/{id}/category", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(Map.of("categoryId", 3L))))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.message").value("Invalid category ID"));
     }
 }

@@ -57,14 +57,14 @@ As a **user**, I want to **create notes** so i can save **important Information*
 - The user **must** receive a **confirmation message** upon **successful** creation.
 - The system **must** reject **invalid notes** upon note creation.
 ### Edit/Delete Notes:
-As a **user**, I want to **edit or delete notes** to keep my **notes relevant and accurate**.
+- As a **user**, I want to **edit or delete notes** to keep my **notes relevant and accurate**.
 #### Acceptance Criteria
 - The user **must** be able to **edit** the **title and body** of an **existing note**.
 - The system **must** **update** the **note** and **reflect changes** in the **notes list**.
 - The user **must** be able to **delete a note**, with **a confirmation prompt before deletion**.
 - the system **must reject** **invalid notes** upon note creation
 ### Category Creation:
-As a **user**, I want to **create categories** so that I can **organize my notes** by topic.
+- As a **user**, I want to **create categories** so that I can **organize my notes** by topic.
 #### Acceptance Criteria
 - The user **must** be able to **create a new category** by entering a name.
 - The system **must** **save the category** and **display it in the user's category list**.
@@ -123,7 +123,7 @@ I finished the Category Class with all the necessities like Controller and the D
 ### Saturday 2.11.2024
 I only did the Testplan and exception handler today due my limited time but i did the whole Testplan for all endpoints. Tommorow im going to Test it all and also do the Unit Tests. The only issue i had today was, that the Validation worked in a wierd way and i didn't know, that if i want the right error messages i have to Validate the DTO's too but it works now
 ### Sunday 3.11.2024
-I hate tests. Found a bug that when the user is invalid it gives out 500 server error instead of saying the ID not found. I also had a bug where i couldnt create a User because it doesn't get the Password attribute so i added a UserDTOtoEntity for Registration and added the password get mapping so i can see the passwords are saved right. Also wrote all Tests and added the Dependency for Mock tests. did i already say i hate tests?. 
+I hate tests. Found a bug that when the user is invalid it gives out 500 server error instead of saying the ID not found. I also had a bug where i couldnt create a User because it doesn't get the Password attribute so i added a UserDTOtoEntity for Registration and added the password get mapping so i can see the passwords are saved right. Also wrote all Tests and added the Dependency for Mock tests. did i already say i hate tests?. Well also made some more things and added the category foreign key to Notes
 
 
 ## Testplan
@@ -140,3 +140,17 @@ I hate tests. Found a bug that when the user is invalid it gives out 500 server 
 | 8       | Create Category without User | Missing userId           | Negative    | Send a POST request to `/category` without userId.         | Error message: "User ID cannot be null".  |
 | 9       | Register User                | API access               | Positive    | Send a POST request to `/user/register` with valid data.   | User is registered successfully.          |
 | 10      | Register User Invalid Email  | Invalid email format     | Negative    | Send a POST request to `/user/register` with invalid email. | Error message: "Please enter a valid email". |
+## Testprotocol
+| TestID | Result                                 | Test Success | Date      | Tester Name      |
+| ------ | -------------------------------------- | ------------ | --------- | ---------------- |
+| 1      | note created                           | yes          | 3.11.2024 | Max Hasselwander |
+| 2      | note rejected with error message       | yes          | 3.11.2024 | Max Hasselwander |
+| 3      | note is editable                       | yes          | 3.11.2024 | Max Hasselwander |
+| 4      | note is rejected with no error message | no           | 3.11.2024 | Max Hasselwander |
+| 4      | note is rejected with error message    | yes          | 3.11.2024 | Max Hasselwander |
+| 5      | gets response 204 No content           | yes          | 3.11.2024 | Max Hasselwander |
+| 6      | gets error message that there is no id | yes          | 3.11.2024 | Max Hasselwander |
+| 7      | category created                       | yes          | 3.11.2024 | Max Hasselwander |
+| 8      | user with id 0 not found               | yes          | 3.11.2024 | Max Hasselwander |
+| 9      | user is created                        | yes          | 3.11.2024 | Max Hasselwander |
+| 10     | please enter a valid email             | yes          | 3.11.2024 | Max Hasselwander |

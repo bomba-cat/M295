@@ -51,6 +51,17 @@ public class EntityMapper {
         if (note.getUser() != null) {
             noteDTO.setUserId(note.getUser().getUserId());
         }
+        if (note.getCategory() != null) {
+            noteDTO.setCategoryId(note.getCategory().getCategoryId());
+        }
+        if (note.getUser() != null) {
+            noteDTO.setUserId(note.getUser().getUserId());
+            System.out.println("User ID set to: " + note.getUser().getUserId());
+        }
+        if (note.getCategory() != null) {
+            noteDTO.setCategoryId(note.getCategory().getCategoryId());
+            System.out.println("Category ID set to: " + note.getCategory().getCategoryId());
+        }
 
         return noteDTO;
     }
@@ -69,6 +80,11 @@ public class EntityMapper {
             User user = new User();
             user.setUserId(noteDTO.getUserId());
             note.setUser(user);
+        }
+        if (noteDTO.getCategoryId() != 0) {
+            Category category = new Category();
+            category.setCategoryId(noteDTO.getCategoryId());
+            note.setCategory(category);
         }
 
         return note;

@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class CategoryDTO {
-
     private long categoryId;
 
     @NotNull(message = "Category name cannot be null")
