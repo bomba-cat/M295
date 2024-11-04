@@ -13,9 +13,10 @@ import java.util.stream.Collectors;
 
 /**
  * This is a global exception handler that handles different types of exceptions.
- * It provides user-friendly error messages for various scenarios such as validation errors,
+ * It provides error messages for various scenarios such as validation errors,
  * entity not found exceptions, constraint violations, and unexpected errors.
  */
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -25,6 +26,7 @@ public class GlobalExceptionHandler {
      * @param ex the MethodArgumentNotValidException
      * @return a ResponseEntity containing a user-friendly error message
      */
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult().getFieldErrors().stream()
@@ -41,6 +43,7 @@ public class GlobalExceptionHandler {
      * @param ex the ConstraintViolationException
      * @return a ResponseEntity containing a user-friendly error message
      */
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ApiResponse<String>> handleConstraintViolationException(ConstraintViolationException ex) {
         String errorMessage = ex.getConstraintViolations().stream()
@@ -57,6 +60,7 @@ public class GlobalExceptionHandler {
      * @param ex the EntityNotFoundException
      * @return a ResponseEntity containing a user-friendly error message
      */
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiResponse<String>> handleEntityNotFoundException(EntityNotFoundException ex) {
         ApiResponse<String> response = new ApiResponse<>(false, "The requested entity was not found.", null);
@@ -69,6 +73,7 @@ public class GlobalExceptionHandler {
      * @param ex the IllegalArgumentException
      * @return a ResponseEntity containing a user-friendly error message
      */
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiResponse<String>> handleIllegalArgumentException(IllegalArgumentException ex) {
         ApiResponse<String> response = new ApiResponse<>(false, ex.getMessage(), null);
@@ -81,6 +86,7 @@ public class GlobalExceptionHandler {
      * @param ex the Exception
      * @return a ResponseEntity containing a generic error message
      */
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<String>> handleGeneralException(Exception ex) {
         ex.printStackTrace();

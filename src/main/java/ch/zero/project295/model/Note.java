@@ -6,11 +6,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 /**
- * Represents a note in the system.
- * <p>
- * Each note is associated with a specific user and contains details like title, body, and timestamps for creation and modification.
- * </p>
+ * Represents a note in the system, associated with a specific user.
+ * Contains details like title, body, timestamps for creation and modification, and related user and category.
  */
+
 @Entity
 public class Note {
 
@@ -38,8 +37,6 @@ public class Note {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-
-    // Getters and setters
 
     public long getNoteId() {
         return noteId;

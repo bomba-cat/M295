@@ -6,6 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Represents the Data Transfer Object for Note.
+ * Holds note details such as title, body, creation and modification timestamps,
+ * as well as related user and category identifiers.
+ */
 public class NoteDTO {
 
     private long noteId;

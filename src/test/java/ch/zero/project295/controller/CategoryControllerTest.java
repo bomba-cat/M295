@@ -21,6 +21,12 @@ import ch.zero.project295.repository.CategoryRepository;
 import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.util.EntityMapper;
 
+/**
+ * Unit tests for the CategoryController class.
+ * <p>
+ * These tests validate the API endpoints for creating, retrieving, and deleting categories.
+ * </p>
+ */
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest {
     @Autowired
@@ -35,6 +41,10 @@ class CategoryControllerTest {
     @MockBean
     private UserRepository userRepository;
 
+    /**
+     * Test for successfully creating a category.
+     * Ensures that a valid category can be created if the associated user exists.
+     */
     @Test
     void createCategory_Success() throws Exception {
         // Arrange
@@ -58,6 +68,10 @@ class CategoryControllerTest {
                 .andExpect(jsonPath("$.message").value("Category created successfully"));
     }
 
+    /**
+     * Test for failure in creating a category when the associated user is not found.
+     * Ensures that a 404 response is returned if the user does not exist.
+     */
     @Test
     void createCategory_Failure_UserNotFound() throws Exception {
         // Arrange
@@ -77,6 +91,10 @@ class CategoryControllerTest {
                 .andExpect(jsonPath("$.message").value("User with ID 1 not found"));
     }
 
+    /**
+     * Test for successfully retrieving a category by ID.
+     * Ensures that a valid category is returned if it exists.
+     */
     @Test
     void getCategoryById_Success() throws Exception {
         // Arrange
@@ -94,6 +112,10 @@ class CategoryControllerTest {
                 .andExpect(jsonPath("$.data.categoryName").value("Test Category"));
     }
 
+    /**
+     * Test for failure in retrieving a category by ID when it is not found.
+     * Ensures that a 404 response is returned if the category does not exist.
+     */
     @Test
     void getCategoryById_Failure_NotFound() throws Exception {
         // Arrange
@@ -106,6 +128,10 @@ class CategoryControllerTest {
                 .andExpect(jsonPath("$.message").value("Category with ID 1 not found"));
     }
 
+    /**
+     * Test for successfully deleting a category by ID.
+     * Ensures that a valid category can be deleted if it exists.
+     */
     @Test
     void deleteCategory_Success() throws Exception {
         // Arrange
@@ -122,6 +148,10 @@ class CategoryControllerTest {
                 .andExpect(jsonPath("$.message").value("Category with ID 1 deleted successfully"));
     }
 
+    /**
+     * Test for failure in deleting a category when it is not found.
+     * Ensures that a 404 response is returned if the category does not exist.
+     */
     @Test
     void deleteCategory_Failure_NotFound() throws Exception {
         // Arrange

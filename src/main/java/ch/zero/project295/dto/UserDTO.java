@@ -4,6 +4,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Represents the Data Transfer Object for User.
+ * Holds user information such as username, email, and password, 
+ * with appropriate validation for data integrity.
+ */
+
 public class UserDTO {
     private long userId;
 
@@ -22,8 +28,6 @@ public class UserDTO {
     public UserDTO() {
         // json
     }
-
-    // Getters and setters
 
     public long getUserId() {
         return userId;

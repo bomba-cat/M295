@@ -14,6 +14,10 @@ import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.util.ApiResponse;
 import ch.zero.project295.util.EntityMapper;
 
+/**
+ * UserController handles all user-related operations in the system, 
+ * including registration, updating user information, and deleting users.
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -35,13 +39,6 @@ public class UserController {
         List<User> userList = userRepository.findAll();
         List<UserDTO> userListDTO = EntityMapper.toUserDTOList(userList);
         ApiResponse<List<UserDTO>> response = new ApiResponse<>(true, "Users retrieved successfully", userListDTO);
-        return ResponseEntity.ok(response);
-    }
-    
-    @GetMapping("/password")
-    public ResponseEntity<ApiResponse<List<User>>> getAllUserswithpasswords() {
-        List<User> userList = userRepository.findAll();
-        ApiResponse<List<User>> response = new ApiResponse<>(true, "Users retrieved successfully", userList);
         return ResponseEntity.ok(response);
     }
 
@@ -66,12 +63,13 @@ public class UserController {
     /**
      * Registers a new user in the system.
      *
-     * @param user the user information to register
+     * @param userDTO the user information to register
      * @return ResponseEntity containing ApiResponse with the registered user
+     * 
      */
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<UserDTO>> registerUser(@Valid @RequestBody UserDTO userDTO) {
-        System.out.println("Received password: " + userDTO.getPassword());
+        System.out.println("Received password: " + userDTO.getPassword()); // Debugging purpose; avoid logging passwords in production.
         User user = EntityMapper.toUserEntityRegistration(userDTO);
         User registeredUser = userRepository.save(user);
         UserDTO registeredUserDTO = EntityMapper.toUserDTO(registeredUser);
@@ -127,6 +125,7 @@ public class UserController {
      * @param id       the ID of the user to update
      * @param password the new password
      * @return ResponseEntity containing ApiResponse with the updated user or a 404 status if not found
+     *
      */
     @PutMapping("/{id}/password")
     public ResponseEntity<ApiResponse<UserDTO>> updatePassword(@PathVariable long id, @Valid @RequestBody String password) {

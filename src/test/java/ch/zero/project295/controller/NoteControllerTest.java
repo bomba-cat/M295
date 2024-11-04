@@ -27,6 +27,12 @@ import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.repository.CategoryRepository;
 import ch.zero.project295.util.EntityMapper;
 
+/**
+ * Test class for NoteController, verifying the behavior of note-related endpoints.
+ *
+ * This class uses MockMvc to perform integration-like tests on the REST API endpoints defined in the NoteController.
+ * Each test method is designed to simulate a specific use case, such as creating, retrieving, updating, or deleting notes.
+ */
 @WebMvcTest(NoteController.class)
 public class NoteControllerTest {
     @Autowired
@@ -44,7 +50,9 @@ public class NoteControllerTest {
     @MockBean
     private CategoryRepository categoryRepository;
     
-
+    /**
+     * Test case to verify the successful creation of a note with a given userId and categoryId.
+     */
     @Test
     void createNote_Success_WithUserIdAndCategoryId() throws Exception {
         // Arrange
@@ -71,6 +79,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.message").value("Note created"));
     }
     
+    /**
+     * Test case to verify failure when creating a note with an empty title.
+     */
     @Test
     void createNote_Failure_TitleEmpty() throws Exception {
         NoteDTO noteDTO = new NoteDTO();
@@ -86,6 +97,9 @@ public class NoteControllerTest {
         .andExpect(jsonPath("$.message").value("Title cannot be empty"));
     }
         
+    /**
+     * Test case to verify successful retrieval of all notes.
+     */
     @Test
     void getAllNotes_Success() throws Exception {
         // Arrange
@@ -106,6 +120,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.data.length()").value(1));
     }
 
+    /**
+     * Test case to verify successful retrieval of a note by its ID.
+     */
     @Test
     void getNoteById_Success() throws Exception {
         // Arrange
@@ -123,6 +140,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.message").value("Note with ID 1 found successfully"));
     }
 
+    /**
+     * Test case to verify failure when attempting to retrieve a non-existent note by ID.
+     */
     @Test
     void getNoteById_Failure_NotFound() throws Exception {
         // Arrange
@@ -135,6 +155,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.message").value("Note with ID 1 not found"));
     }
 
+    /**
+     * Test case to verify successful deletion of a note.
+     */
     @Test
     void deleteNote_Success() throws Exception {
         // Arrange
@@ -151,6 +174,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.message").value("Note with ID 1 deleted successfully"));
     }
 
+    /**
+     * Test case to verify failure when attempting to delete a non-existent note.
+     */
     @Test
     void deleteNote_Failure_NotFound() throws Exception {
         // Arrange
@@ -163,6 +189,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.message").value("Note with ID 1 not found"));
     }
 
+    /**
+     * Test case to verify successful updating of a note's category.
+     */
     @Test
     void updateNoteCategory_Success() throws Exception {
         System.out.println("Running updateNoteCategory_Success test");
@@ -195,8 +224,9 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.message").value("Note category updated successfully for note with ID 1"));
     }
 
-    
-
+    /**
+     * Test case to verify failure when attempting to update a note's category with a non-existent category ID.
+     */
     @Test
     void updateNoteCategory_Failure_CategoryNotFound() throws Exception {
         // Arrange

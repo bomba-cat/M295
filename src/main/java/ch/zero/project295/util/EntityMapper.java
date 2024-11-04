@@ -10,9 +10,21 @@ import ch.zero.project295.model.Category;
 import ch.zero.project295.model.Note;
 import ch.zero.project295.model.User;
 
+/**
+ * Utility class for converting entities to DTOs and vice versa.
+ * <p>
+ * Provides methods to map between entities (User, Note, Category) 
+ * and their corresponding DTOs (UserDTO, NoteDTO, CategoryDTO).
+ * </p>
+ */
 public class EntityMapper {
 
-    // Convert User to UserDTO
+    /**
+     * Converts a User entity to a UserDTO.
+     *
+     * @param user the User entity to convert
+     * @return a UserDTO representing the User entity
+     */
     public static UserDTO toUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(user.getUserId());
@@ -21,7 +33,12 @@ public class EntityMapper {
         return userDTO;
     }
 
-    // Convert UserDTO to User
+    /**
+     * Converts a UserDTO to a User entity.
+     *
+     * @param userDTO the UserDTO to convert
+     * @return a User entity representing the UserDTO
+     */
     public static User toUserEntity(UserDTO userDTO) {
         User user = new User();
         user.setUserId(userDTO.getUserId());
@@ -29,6 +46,14 @@ public class EntityMapper {
         user.setEmail(userDTO.getEmail());
         return user;
     }
+
+    /**
+     * Converts a UserDTO to a User entity for registration purposes, 
+     * including password.
+     *
+     * @param userDTO the UserDTO to convert
+     * @return a User entity representing the UserDTO with password
+     */
     public static User toUserEntityRegistration(UserDTO userDTO) {
         User user = new User();
         user.setUserId(userDTO.getUserId());
@@ -38,7 +63,12 @@ public class EntityMapper {
         return user;
     }
 
-    // Convert Note to NoteDTO
+    /**
+     * Converts a Note entity to a NoteDTO.
+     *
+     * @param note the Note entity to convert
+     * @return a NoteDTO representing the Note entity
+     */
     public static NoteDTO toNoteDTO(Note note) {
         NoteDTO noteDTO = new NoteDTO();
         noteDTO.setNoteId(note.getNoteId());
@@ -47,13 +77,6 @@ public class EntityMapper {
         noteDTO.setCreatedDate(note.getCreatedDate());
         noteDTO.setModifiedDate(note.getModifiedDate());
 
-        // Set only the userId, not the entire User object
-        if (note.getUser() != null) {
-            noteDTO.setUserId(note.getUser().getUserId());
-        }
-        if (note.getCategory() != null) {
-            noteDTO.setCategoryId(note.getCategory().getCategoryId());
-        }
         if (note.getUser() != null) {
             noteDTO.setUserId(note.getUser().getUserId());
             System.out.println("User ID set to: " + note.getUser().getUserId());
@@ -66,7 +89,12 @@ public class EntityMapper {
         return noteDTO;
     }
 
-    // Convert NoteDTO to Note
+    /**
+     * Converts a NoteDTO to a Note entity.
+     *
+     * @param noteDTO the NoteDTO to convert
+     * @return a Note entity representing the NoteDTO
+     */
     public static Note toNoteEntity(NoteDTO noteDTO) {
         Note note = new Note();
         note.setNoteId(noteDTO.getNoteId());
@@ -75,7 +103,6 @@ public class EntityMapper {
         note.setCreatedDate(noteDTO.getCreatedDate());
         note.setModifiedDate(noteDTO.getModifiedDate());
 
-        // Set only the userId by creating a new User instance with just the userId set
         if (noteDTO.getUserId() != 0) {
             User user = new User();
             user.setUserId(noteDTO.getUserId());
@@ -90,13 +117,17 @@ public class EntityMapper {
         return note;
     }
 
-    // Convert Category to CategoryDTO
+    /**
+     * Converts a Category entity to a CategoryDTO.
+     *
+     * @param category the Category entity to convert
+     * @return a CategoryDTO representing the Category entity
+     */
     public static CategoryDTO toCategoryDTO(Category category) {
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setCategoryId(category.getCategoryId());
         categoryDTO.setCategoryName(category.getCategoryName());
 
-        // Set only the userId, not the entire User object
         if (category.getUser() != null) {
             categoryDTO.setUserId(category.getUser().getUserId());
         }
@@ -104,13 +135,17 @@ public class EntityMapper {
         return categoryDTO;
     }
 
-    // Convert CategoryDTO to Category
+    /**
+     * Converts a CategoryDTO to a Category entity.
+     *
+     * @param categoryDTO the CategoryDTO to convert
+     * @return a Category entity representing the CategoryDTO
+     */
     public static Category toCategoryEntity(CategoryDTO categoryDTO) {
         Category category = new Category();
         category.setCategoryId(categoryDTO.getCategoryId());
         category.setCategoryName(categoryDTO.getCategoryName());
 
-        // Set only the userId by creating a new User instance with just the userId set
         if (categoryDTO.getUserId() != 0) {
             User user = new User();
             user.setUserId(categoryDTO.getUserId());
@@ -120,21 +155,36 @@ public class EntityMapper {
         return category;
     }
 
-    // Convert List<Note> to List<NoteDTO>
+    /**
+     * Converts a list of Note entities to a list of NoteDTOs.
+     *
+     * @param notes the list of Note entities to convert
+     * @return a list of NoteDTOs representing the Note entities
+     */
     public static List<NoteDTO> toNoteDTOList(List<Note> notes) {
         return notes.stream()
                 .map(EntityMapper::toNoteDTO)
                 .collect(Collectors.toList());
     }
 
-    // Convert List<User> to List<UserDTO>
+    /**
+     * Converts a list of User entities to a list of UserDTOs.
+     *
+     * @param users the list of User entities to convert
+     * @return a list of UserDTOs representing the User entities
+     */
     public static List<UserDTO> toUserDTOList(List<User> users) {
         return users.stream()
                 .map(EntityMapper::toUserDTO)
                 .collect(Collectors.toList());
     }
 
-    // Convert List<Category> to List<CategoryDTO>
+    /**
+     * Converts a list of Category entities to a list of CategoryDTOs.
+     *
+     * @param categories the list of Category entities to convert
+     * @return a list of CategoryDTOs representing the Category entities
+     */
     public static List<CategoryDTO> toCategoryDTOList(List<Category> categories) {
         return categories.stream()
                 .map(EntityMapper::toCategoryDTO)

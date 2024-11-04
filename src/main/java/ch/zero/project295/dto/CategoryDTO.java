@@ -4,6 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Represents the Data Transfer Object for Category.
+ * Holds category information such as the name and associated user identifier,
+ * with validation to ensure proper data integrity.
+ */
 public class CategoryDTO {
     private long categoryId;
 
