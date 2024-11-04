@@ -13,6 +13,7 @@ import ch.zero.project295.util.ApiResponse;
 import ch.zero.project295.util.EntityMapper;
 import ch.zero.project295.model.Category;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,6 +34,7 @@ public class CategoryController {
      *
      * @return ResponseEntity containing ApiResponse with a list of all categories
      */
+    @Operation(summary = "Get all categories", description = "Retrieves all categories in the system")
     @GetMapping
     public ResponseEntity<ApiResponse<List<CategoryDTO>>> getAllCategories() {
         List<Category> categoryList = categoryRepository.findAll();
@@ -48,6 +50,7 @@ public class CategoryController {
      * @param id the ID of the category to retrieve
      * @return ResponseEntity containing ApiResponse with the category if found, or 404 status if not found
      */
+    @Operation(summary = "Get a category by ID", description = "Retrieves a category by its ID")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryDTO>> getCategoryById(@PathVariable long id) {
         return categoryRepository.findById(id)
@@ -66,6 +69,7 @@ public class CategoryController {
      * @param categoryDTO the category information to create
      * @return ResponseEntity containing ApiResponse with the created category
      */
+    @Operation(summary = "Create a new category", description = "Creates a new category with the provided information")
     @PostMapping
     public ResponseEntity<ApiResponse<CategoryDTO>> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
         if (!userRepository.existsById(categoryDTO.getUserId())) {
@@ -78,7 +82,6 @@ public class CategoryController {
         CategoryDTO savedCategoryDTO = EntityMapper.toCategoryDTO(savedCategory);
         ApiResponse<CategoryDTO> response = new ApiResponse<>(true, "Category created successfully", savedCategoryDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        
     }
 
     /**
@@ -88,6 +91,7 @@ public class CategoryController {
      * @param categoryDTO the updated category information
      * @return ResponseEntity containing ApiResponse with the updated category or 404 status if not found
      */
+    @Operation(summary = "Update a category", description = "Updates an existing category by its ID")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryDTO>> updateCategory(@PathVariable long id, @Valid @RequestBody CategoryDTO categoryDTO) {
         return categoryRepository.findById(id)
@@ -108,6 +112,7 @@ public class CategoryController {
      * @param id the ID of the category to delete
      * @return ResponseEntity containing ApiResponse with no content or 404 status if not found
      */
+    @Operation(summary = "Delete a category", description = "Deletes a category by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable long id) {
         return categoryRepository.findById(id)
@@ -119,5 +124,4 @@ public class CategoryController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>(false, "Category with ID " + id + " not found", null)));
     }
-    
 }

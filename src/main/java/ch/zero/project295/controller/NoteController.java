@@ -16,6 +16,7 @@ import ch.zero.project295.repository.UserRepository;
 import ch.zero.project295.util.ApiResponse;
 import ch.zero.project295.util.EntityMapper;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -45,6 +46,7 @@ public class NoteController {
      *
      * @return ResponseEntity containing ApiResponse with a list of all notes
      */
+    @Operation(summary = "Get all notes", description = "Retrieves all notes in the system")
     @GetMapping
     public ResponseEntity<ApiResponse<List<NoteDTO>>> getAllNotes() {
         List<Note> noteList = noteRepository.findAll();
@@ -59,6 +61,7 @@ public class NoteController {
      * @param id the ID of the note to retrieve
      * @return ResponseEntity containing ApiResponse with the note if found, or a 404 status if not found
      */
+    @Operation(summary = "Get a note by ID", description = "Retrieves a note by its ID")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<NoteDTO>> getNoteById(@PathVariable long id) {
         return noteRepository.findById(id)
@@ -76,9 +79,8 @@ public class NoteController {
      *
      * @param noteDTO the note information to create
      * @return ResponseEntity containing ApiResponse with the created note
-     * 
-     * Note: Ensure that the user and category IDs exist before attempting to create the note.
      */
+    @Operation(summary = "Create a new note", description = "Creates a new note in the system")
     @PostMapping
     public ResponseEntity<ApiResponse<NoteDTO>> createNote(@Valid @RequestBody NoteDTO noteDTO) {
         if (!userRepository.existsById(noteDTO.getUserId())) {
@@ -103,9 +105,8 @@ public class NoteController {
      * @param id         the ID of the note to update
      * @param requestBody the request body containing the new note title
      * @return ResponseEntity containing ApiResponse with the updated note or a 404 status if not found
-     * 
-     * Note: Request body should contain a key-value pair for "noteTitle".
      */
+    @Operation(summary = "Update note title", description = "Updates the title of an existing note")
     @PutMapping("{id}/notetitle")
     public ResponseEntity<ApiResponse<NoteDTO>> updateNoteTitle(@PathVariable Long id, @Valid @RequestBody Map<String, String> requestBody) {
         String noteTitle = requestBody.get("noteTitle");
@@ -133,9 +134,8 @@ public class NoteController {
      * @param id         the ID of the note to update
      * @param requestBody the request body containing the new note body
      * @return ResponseEntity containing ApiResponse with the updated note or a 404 status if not found
-     * 
-     * Note: Request body should contain a key-value pair for "noteBody".
      */
+    @Operation(summary = "Update note body", description = "Updates the body of an existing note")
     @PutMapping("{id}/notebody")
     public ResponseEntity<ApiResponse<NoteDTO>> updateNoteBody(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
         String noteBody = requestBody.get("noteBody");
@@ -163,9 +163,8 @@ public class NoteController {
      * @param id         the ID of the note to update
      * @param requestBody the request body containing the new category ID
      * @return ResponseEntity containing ApiResponse with the updated note or a 404 status if not found
-     * 
-     * Note: Ensure the category ID exists before attempting to update the note's category.
      */
+    @Operation(summary = "Update note category", description = "Updates the category of an existing note")
     @PutMapping("{id}/category")
     public ResponseEntity<ApiResponse<NoteDTO>> updateNoteCategory(@PathVariable Long id, @RequestBody Map<String, Long> requestBody) {
         Long categoryId = requestBody.get("categoryId");
@@ -193,6 +192,7 @@ public class NoteController {
      * @param id the ID of the note to delete
      * @return ResponseEntity containing ApiResponse with no content or a 404 status if not found
      */
+    @Operation(summary = "Delete a note", description = "Deletes a note by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteNote(@PathVariable long id) {
         return noteRepository.findById(id)
