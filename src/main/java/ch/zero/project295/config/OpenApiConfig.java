@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "My API Documentation",
+                title = "API Doc for Note API",
                 version = "1.0",
                 description = "API documentation for my Spring Boot project"
         )
