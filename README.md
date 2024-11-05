@@ -87,7 +87,7 @@ I want to maka a Note App that has a **User System** a **Category System** and o
 3. **Note-Taking**: Users can create, edit, delete, and search notes.
 
 ## Elevator pitch 
-"Our Note App empowers users to organize their thoughts seamlessly with an intuitive **User System**, **Category System**, and **Note-Taking** features. Users can easily **register, log in, and manage their profiles** while staying organized with **custom categories** that allow easy filtering of notes. The **note-taking** experience is enhanced with options to **create, edit, delete, and search notes**."
+"Our Note App empowers users to organize their thoughts seamlessly with an intuitive **User System**, **Category System**, and **Note-Taking** features. Users can easily **register and manage their profiles** while staying organized with **custom categories** that allow easy filtering of notes. The **note-taking** experience is enhanced with options to **create, edit, delete, and search notes**."
 
 ## Project Criteria
 
