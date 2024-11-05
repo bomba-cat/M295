@@ -197,7 +197,7 @@ if i want to spend more time on a day i'm going to do that
 ### Day 6 (Sunday): Testing/Unit Testing (8 Hours)
  - [x] **5-8 Hours**: Write tests for note and category endpoints.
 ### Day 8 (Tuesday): Finishing touches
-- [ ] **1-8 Hours:** Finalizing the work and optimize the code for the requirements of the project. do some Frontend (Optional)
+- [x] **1-8 Hours:** Finalizing the work and optimize the code for the requirements of the project. do some Frontend (Optional)
 # Decide(Entscheiden)
 Based on the requirements and project goals, the following decisions were made:
 - **Framework:** Use **Spring Boot** for the backend.
