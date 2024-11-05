@@ -1,5 +1,37 @@
 # **Project-M295-Note-App**
 
+# Table of Contents
+
+- [Project-M295-Note-App](#project-m295-note-app)
+- [Installation Guide for Note App Project](#installation-guide-for-note-app-project)
+  - [Prerequisites](#prerequisites)
+  - [Steps to Install](#steps-to-install)
+    - [1. Clone the Repository](#1-clone-the-repository)
+    - [2. Open the Project in Your IDE](#2-open-the-project-in-your-ide)
+    - [3. Configure Database](#3-configure-database)
+    - [4. Running the Application](#4-running-the-application)
+    - [5. Swagger Documentation](#5-swagger-documentation)
+    - [6. Troubleshooting Tips](#6-troubleshooting-tips)
+- [Inform (Informieren)](#inform-informieren)
+  - [Quick Idea Summary](#quick-idea-summary)
+  - [Elevator Pitch](#elevator-pitch)
+  - [Project Criteria](#project-criteria)
+- [Plan (Planen)](#plan-planen)
+  - [User Stories](#user-stories)
+  - [Class Diagram](#class-diagramm)
+  - [Timeplan](#timeplan)
+- [Decide (Entscheiden)](#decide-entscheiden)
+- [Implement (Realisieren)](#implement-realisieren)
+  - [Diary](#diary)
+- [Control (Test)](#kontrollieren-test)
+  - [Testplan](#testplan)
+  - [Testprotocol](#testprotocol)
+- [Evaluate (Auswerten)](#evaluation-auswerten)
+  - [Module Evaluation](#moduleevaluation)
+  - [Project Evaluation](#projectevaluation)
+  - [Used Utilities](#used-utilities)
+
+
 # Installation Guide for Note App Project
 
 This guide will help you install and set up the Note App project on your local environment.
