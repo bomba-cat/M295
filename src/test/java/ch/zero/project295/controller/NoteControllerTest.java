@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.zero.project295.dto.NoteDTO;
 import ch.zero.project295.model.Note;
-import ch.zero.project295.model.User;
 import ch.zero.project295.model.Category;
 import ch.zero.project295.repository.NoteRepository;
 import ch.zero.project295.repository.UserRepository;
