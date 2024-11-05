@@ -2,6 +2,7 @@ package ch.zero.project295.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,16 +43,34 @@ public class NoteController {
     }
 
     /**
-     * Retrieves all notes in the system.
-     *
-     * @return ResponseEntity containing ApiResponse with a list of all notes
-     */
-    @Operation(summary = "Get all notes", description = "Retrieves all notes in the system")
+    * Retrieves all notes in the system, with an optional filter for categoryId.
+    * This method can retrieve either all notes or only those that belong to a specified category. 
+    * If the categoryId parameter is provided, it returns only notes that belong to the given category.
+    *
+    * @param categoryId Optional category ID to filter notes by category.
+    * @return ResponseEntity containing ApiResponse with a list of notes filtered by the provided categoryId,
+    *         or all notes if no categoryId is specified.
+    */
+    @Operation(summary = "Get all notes", description = "Retrieves all notes in the system also has the option to get Notes by categoryId")
     @GetMapping
-    public ResponseEntity<ApiResponse<List<NoteDTO>>> getAllNotes() {
-        List<Note> noteList = noteRepository.findAll();
+    public ResponseEntity<ApiResponse<List<NoteDTO>>> getAllNotes(@RequestParam(value = "categoryId", required = false) Long categoryId) {
+        List<Note> noteList;
+
+        if (categoryId != null) {
+            if (!categoryRepository.existsById(categoryId)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ApiResponse<>(false, "Category with ID " + categoryId + " not found", null));
+            }
+            noteList = noteRepository.findAll()
+                    .stream()
+                    .filter(note -> note.getCategory() != null && note.getCategory().getCategoryId() == categoryId)
+                    .collect(Collectors.toList());
+        } else {
+            noteList = noteRepository.findAll();
+        }
+
         List<NoteDTO> noteDTOList = EntityMapper.toNoteDTOList(noteList);
-        ApiResponse<List<NoteDTO>> response = new ApiResponse<>(true, "Successfully retrieved all notes", noteDTOList);
+        ApiResponse<List<NoteDTO>> response = new ApiResponse<>(true, "Successfully retrieved notes", noteDTOList);
         return ResponseEntity.ok(response);
     }
 
