@@ -10,6 +10,15 @@ jobs:
 
             runs-on: ubuntu-latest
 
+            services:
+              mysql:
+                image: mysql:latest
+                ports:
+                  - 3306:3306
+                env:
+                  MYSQL_ROOT_PASSWORD: root
+
+
             steps:
             - uses: actions/checkout@v4
             - name: Set up JDK 21
