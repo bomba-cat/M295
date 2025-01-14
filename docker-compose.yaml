@@ -1,25 +1,29 @@
 services:
 
   database:
-    image: mysql
+    image: mysql:latest
     ports:
       - 3306:3306
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: note_app
 
   backend:
     build:
       context: ./backend
-      image: m295-backend:1.0
-      depends_on:
-        - database
+    image: m295-backend:1.0
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
 
   caddy-proxy:
     image: caddy:latest
     ports:
-      - 3306:3306
-      - 8080:8080
+      - 80:80
+      - 443:443
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data

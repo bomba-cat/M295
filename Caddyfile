@@ -1,12 +1,9 @@
-localhost {
+m210.localhost {
 	log {
 		format console
 		level error
 	}
 
-	handle /note_app* {
-		reverse_proxy database:3306
-	}
 	handle {
 		reverse_proxy backend:8080
 	}
