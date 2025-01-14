@@ -1,0 +1,30 @@
+services:
+
+  database:
+    image: mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  backend:
+    build:
+      context: ./backend
+      image: m295-backend:1.0
+      depends_on:
+        - database
+
+  caddy-proxy:
+    image: caddy:latest
+    ports:
+      - 3306:3306
+      - 8080:8080
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
